@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="5g2b1.ftp.infomaniak.com" id="bacc7902-5c1b-4b72-9eb0-b3084abbc475" port="22" nameFormat="DESCRIPTIVE" username="5g2b1_js" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

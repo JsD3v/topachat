@@ -14,16 +14,16 @@ class Contact
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $nom;
+    private ?string $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    private ?string $email;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $telephone;
+    private ?string $telephone;
 
     #[ORM\Column(type: 'text')]
-    private $message;
+    private ?string $message;
 
     public function getId(): ?int
     {
@@ -77,4 +77,6 @@ class Contact
 
         return $this;
     }
+
+
 }

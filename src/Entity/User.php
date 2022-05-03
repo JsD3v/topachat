@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $nom;
+    private ?string $nom;
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
@@ -126,3 +126,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+

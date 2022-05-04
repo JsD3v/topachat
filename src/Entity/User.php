@@ -31,7 +31,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
+    
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Client::class, cascade: ['persist', 'remove'])]
+    private $Client;
 
+    public function __Tostring(){
+        return $this->nom;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +129,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->Client;
+    }
+
+    public function setClient(?Client $Client): self
+    {
+        $this->Client = $Client;
 
         return $this;
     }

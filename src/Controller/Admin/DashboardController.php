@@ -2,10 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cartegraphique;
 use App\Entity\CarteMere;
+use App\Entity\Certification;
+use App\Entity\Chipset;
+use App\Entity\Client;
+use App\Entity\Connecteur;
+use App\Entity\ConnecteurCarteMere;
 use App\Entity\Contact;
+use App\Entity\Fabricant;
+use App\Entity\Modularite;
 use App\Entity\Processeur;
 use App\Entity\Ram;
+use App\Entity\Socket;
+use App\Entity\Stockage;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -46,12 +56,23 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateur', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
-        yield MenuItem::linkToCrud('Processeur', 'fas fa-list', Processeur::class);
-        yield MenuItem::linkToCrud('Ram', 'fas fa-list', Ram::class);
-        yield MenuItem::linkToCrud('Carte mère', 'fas fa-list', CarteMere::class);
-        //yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
-
+        yield MenuItem::section('Configurateur PC');
+        yield MenuItem::linkToCrud('Processeur', 'fas fa-microchip', Processeur::class);
+        yield MenuItem::linkToCrud('Ram', 'fas fa-memory', Ram::class);
+        yield MenuItem::linkToCrud('Carte mère', 'fas fa-tablet', CarteMere::class);
+        yield MenuItem::linkToCrud('Chipset', 'fas fa-desktop', Chipset::class);
+        yield MenuItem::linkToCrud('Carte graphique', 'fas fa-battery', Cartegraphique::class);
+        yield MenuItem::linkToCrud('Stockage', 'fas fa-hdd', Stockage::class);
+        yield MenuItem::section('Utilisateurs');
+        yield MenuItem::linkToCrud('Contact', 'fas fa-paper-plane', Contact::class);
+        yield MenuItem::linkToCrud('Utilisateur', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Client', 'fas fa-id-badge', Client::class);
+        yield MenuItem::section('Gestion des composants');
+        yield MenuItem::linkToCrud('Fabricant', 'fas fa-address-card', Fabricant::class);
+        yield MenuItem::linkToCrud('Certifications', 'fas fa-award', Certification::class);
+        yield MenuItem::linkToCrud('Connecteur carte mère', 'fas fa-plug', ConnecteurCarteMere::class);
+        yield MenuItem::linkToCrud('Connecteur', 'fas fa-connectdevelop', Connecteur::class);
+        yield MenuItem::linkToCrud('Modularité', 'fas fa-brain', Modularite::class);
+        yield MenuItem::linkToCrud('Socket', 'fas fa-microchip', Socket::class);
     }
 }

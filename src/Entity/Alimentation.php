@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AlimentationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AlimentationRepository::class)]
@@ -27,6 +29,19 @@ class Alimentation
 
     #[ORM\Column(type: 'decimal', precision: 15, scale: 2)]
     private $prix_alimentation;
+
+    #[ORM\OneToMany(mappedBy: 'alimentation', targetEntity: Configuration::class)]
+    private $configurations;
+
+    public function __construct()
+    {
+        $this->configurations = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->nom_alimentation;
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +104,36 @@ class Alimentation
     public function setPrixAlimentation(string $prix_alimentation): self
     {
         $this->prix_alimentation = $prix_alimentation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Configuration>
+     */
+    public function getConfigurations(): Collection
+    {
+        return $this->configurations;
+    }
+
+    public function addConfiguration(Configuration $configuration): self
+    {
+        if (!$this->configurations->contains($configuration)) {
+            $this->configurations[] = $configuration;
+            $configuration->setAlimentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConfiguration(Configuration $configuration): self
+    {
+        if ($this->configurations->removeElement($configuration)) {
+            // set the owning side to null (unless already changed)
+            if ($configuration->getAlimentation() === $this) {
+                $configuration->setAlimentation(null);
+            }
+        }
 
         return $this;
     }

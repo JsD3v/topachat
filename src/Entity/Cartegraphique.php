@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CartegraphiqueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartegraphiqueRepository::class)]
@@ -33,6 +35,19 @@ class Cartegraphique
 
     #[ORM\Column(type: 'decimal', precision: 15, scale: 2)]
     private $prix_carte_graphique;
+
+    #[ORM\OneToMany(mappedBy: 'carte_graphique', targetEntity: Configuration::class)]
+    private $configurations;
+
+    public function __construct()
+    {
+        $this->configurations = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom_carte_graphique;
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +134,36 @@ class Cartegraphique
     public function setPrixCarteGraphique(string $prix_carte_graphique): self
     {
         $this->prix_carte_graphique = $prix_carte_graphique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Configuration>
+     */
+    public function getConfigurations(): Collection
+    {
+        return $this->configurations;
+    }
+
+    public function addConfiguration(Configuration $configuration): self
+    {
+        if (!$this->configurations->contains($configuration)) {
+            $this->configurations[] = $configuration;
+            $configuration->setCarteGraphique($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConfiguration(Configuration $configuration): self
+    {
+        if ($this->configurations->removeElement($configuration)) {
+            // set the owning side to null (unless already changed)
+            if ($configuration->getCarteGraphique() === $this) {
+                $configuration->setCarteGraphique(null);
+            }
+        }
 
         return $this;
     }

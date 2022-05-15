@@ -8,19 +8,24 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <h1 class="display-3 mb-3 py-5 text-center">Le configurateur de PC</h1>
-
-<form action="" class="form-group py-5">
-    <div class="container">
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-            <div class="col-lg-4">
-                <select class="form-select show-tick">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                </select>
+    <p class="text-center">Merci de choisir votre processeur</p>
+    {{ form_start (form, {'attr' :{'class' : 'form-group py-5'}}) }}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    {{ form_row (form.processeur)}}
+                    {{ form_row (form.carte_mere)}}
+                    {{ form_row (form.ram)}}
+                    {{ form_row (form.ventirad)}}
+                    {{ form_row (form.carte_graphique)}}
+                    {{ form_row (form.stockage)}}
+                    {{ form_row (form.alimentation)}}
+                    <button type="submit" class="btn btn-primary">Créer mon PC</button>
+                </div>
+                <div class="col-lg-4">
+                    Total
+                </div>
             </div>
         </div>
-    </div>
-</form>    <!-- /.row -->
+    {{ form_end (form)}}
 {% endblock %}

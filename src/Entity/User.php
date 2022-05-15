@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
     
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Client::class, cascade: ['persist', 'remove'])]
-    private $Client;
+    private ?Client $Client;
 
     public function __Tostring(){
         return $this->nom;

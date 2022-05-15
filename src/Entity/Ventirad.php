@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\RamRepository;
+use App\Repository\VentiradRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RamRepository::class)]
-class Ram
+#[ORM\Entity(repositoryClass: VentiradRepository::class)]
+class Ventirad
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,21 +16,18 @@ class Ram
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $nom;
+    private $nom_ventirad;
 
     #[ORM\Column(type: 'integer')]
-    private $quantite;
+    private $taille;
 
     #[ORM\Column(type: 'integer')]
-    private $vitesse_horloge;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type_memoire;
+    private $refroidissement_max;
 
     #[ORM\Column(type: 'decimal', precision: 15, scale: 2)]
-    private $prix_ram;
+    private $prix_ventirad;
 
-    #[ORM\OneToMany(mappedBy: 'ram', targetEntity: Configuration::class)]
+    #[ORM\OneToMany(mappedBy: 'ventirad', targetEntity: Configuration::class)]
     private $configurations;
 
     public function __construct()
@@ -38,71 +35,60 @@ class Ram
         $this->configurations = new ArrayCollection();
     }
 
-    public function __ToString(){
-        return $this->getNom();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function __toString(): string
     {
-        return $this->nom;
+        return $this->nom_ventirad;
     }
 
-    public function setNom(string $nom): self
+    public function getNomVentirad(): ?string
     {
-        $this->nom = $nom;
+        return $this->nom_ventirad;
+    }
+
+    public function setNomVentirad(string $nom_ventirad): self
+    {
+        $this->nom_ventirad = $nom_ventirad;
 
         return $this;
     }
 
-    public function getQuantite(): ?int
+    public function getTaille(): ?int
     {
-        return $this->quantite;
+        return $this->taille;
     }
 
-    public function setQuantite(int $quantite): self
+    public function setTaille(int $taille): self
     {
-        $this->quantite = $quantite;
+        $this->taille = $taille;
 
         return $this;
     }
 
-    public function getVitesseHorloge(): ?int
+    public function getRefroidissementMax(): ?int
     {
-        return $this->vitesse_horloge;
+        return $this->refroidissement_max;
     }
 
-    public function setVitesseHorloge(int $vitesse_horloge): self
+    public function setRefroidissementMax(int $refroidissement_max): self
     {
-        $this->vitesse_horloge = $vitesse_horloge;
+        $this->refroidissement_max = $refroidissement_max;
 
         return $this;
     }
 
-    public function getTypeMemoire(): ?string
+    public function getPrixVentirad(): ?string
     {
-        return $this->type_memoire;
+        return $this->prix_ventirad;
     }
 
-    public function setTypeMemoire(string $type_memoire): self
+    public function setPrixVentirad(string $prix_ventirad): self
     {
-        $this->type_memoire = $type_memoire;
-
-        return $this;
-    }
-
-    public function getPrixRam(): ?string
-    {
-        return $this->prix_ram;
-    }
-
-    public function setPrixRam(string $prix_ram): self
-    {
-        $this->prix_ram = $prix_ram;
+        $this->prix_ventirad = $prix_ventirad;
 
         return $this;
     }
@@ -119,7 +105,7 @@ class Ram
     {
         if (!$this->configurations->contains($configuration)) {
             $this->configurations[] = $configuration;
-            $configuration->setRam($this);
+            $configuration->setVentirad($this);
         }
 
         return $this;
@@ -129,8 +115,8 @@ class Ram
     {
         if ($this->configurations->removeElement($configuration)) {
             // set the owning side to null (unless already changed)
-            if ($configuration->getRam() === $this) {
-                $configuration->setRam(null);
+            if ($configuration->getVentirad() === $this) {
+                $configuration->setVentirad(null);
             }
         }
 

@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Alimentation;
 use App\Entity\Cartegraphique;
 use App\Entity\CarteMere;
 use App\Entity\Certification;
 use App\Entity\Chipset;
 use App\Entity\Client;
+use App\Entity\Configuration;
 use App\Entity\Connecteur;
 use App\Entity\ConnecteurCarteMere;
 use App\Entity\Contact;
@@ -17,6 +19,7 @@ use App\Entity\Ram;
 use App\Entity\Socket;
 use App\Entity\Stockage;
 use App\Entity\User;
+use App\Entity\Ventirad;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -60,9 +63,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Processeur', 'fas fa-microchip', Processeur::class);
         yield MenuItem::linkToCrud('Ram', 'fas fa-memory', Ram::class);
         yield MenuItem::linkToCrud('Carte mère', 'fas fa-tablet', CarteMere::class);
-        yield MenuItem::linkToCrud('Chipset', 'fas fa-desktop', Chipset::class);
+        yield MenuItem::linkToCrud('Ventirad', 'fas fa-desktop', Ventirad::class);
         yield MenuItem::linkToCrud('Carte graphique', 'fas fa-battery', Cartegraphique::class);
         yield MenuItem::linkToCrud('Stockage', 'fas fa-hdd', Stockage::class);
+        yield MenuItem::linkToCrud('Alimentation','fas fa-id-badge', Alimentation::class );
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Contact', 'fas fa-paper-plane', Contact::class);
         yield MenuItem::linkToCrud('Utilisateur', 'fas fa-user', User::class);
@@ -74,5 +78,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Connecteur', 'fas fa-connectdevelop', Connecteur::class);
         yield MenuItem::linkToCrud('Modularité', 'fas fa-brain', Modularite::class);
         yield MenuItem::linkToCrud('Socket', 'fas fa-microchip', Socket::class);
+        yield MenuItem::section('Gestion des composants');
+        yield MenuItem::linkToCrud('PC configurés', 'fas fa-desktop', Configuration::class);
     }
 }
